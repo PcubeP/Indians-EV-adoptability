@@ -347,7 +347,11 @@ interface TooltipProps {
 function ChartTooltip({ active, payload, label }: TooltipProps) {
   if (!active || !payload?.length) return null
   const p = payload[0]
-  const name = (p.payload?.state as string) || (p.payload?.maker as string) || (p.name as string) || label
+  // Prefer label ahead of p.name so the time-series/area chart shows the year
+  // (recharts sets p.name to the "units" dataKey); the state/maker bars still
+  // resolve via payload.state/maker, and the pie falls through to p.name since
+  // it has no axis label.
+  const name = (p.payload?.state as string) || (p.payload?.maker as string) || label || (p.name as string)
   return (
     <div className="rounded-lg border border-zinc-700 bg-zinc-950 px-3 py-2 font-mono text-xs shadow-lg">
       <span className="text-zinc-400">{String(name)}: </span>

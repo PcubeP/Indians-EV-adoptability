@@ -34,7 +34,7 @@ statistic.
 
 ```bash
 npm install
-npm run dev        # http://localhost:5176
+npm run dev        # http://localhost:5173
 npm run build
 ```
 
